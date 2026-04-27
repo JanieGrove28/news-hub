@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="page-title">Today's Headlines</h2>
+
+{% if articles %}
+
+{% for article in articles %}
+<div class="card">
+    <h3>{{ article.title }}</h3>
+    <p>{{ article.content|truncatewords:35 }}</p>
+    <small>
+        By {{ article.author }} |
+        {{ article.created_at|date:"d M Y" }}
+    </small>
+</div>
+{% endfor %}
+
+{% else %}
+
+<div class="empty">
+    <h3>No articles published yet.</h3>
+    <p>Check back soon.</p>
+</div>
+
+{% endif %}
+
+{% endblock %}
