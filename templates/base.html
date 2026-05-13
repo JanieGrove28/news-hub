@@ -23,10 +23,14 @@
 
             <a href="{% url 'create_article' %}">Create Article</a>
 
+<<<<<<< HEAD
             <form action="{% url 'logout' %}" method="post" style="display:inline;">
             {% csrf_token %}
             <button type="submit" class="logout-btn">Logout</button>
             </form>
+=======
+            <a href="{% url 'logout' %}">Logout</a>
+>>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
         {% else %}
 
             <a href="/login/">Login</a>

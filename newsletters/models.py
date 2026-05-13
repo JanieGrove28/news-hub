@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from articles.models import Article
 
+<<<<<<< HEAD
 
 class Publisher(models.Model):
     """
@@ -31,6 +32,9 @@ class Newsletter(models.Model):
     """
     Represents a newsletter created by a user and containing multiple articles.
     """
+=======
+class Newsletter(models.Model):
+>>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

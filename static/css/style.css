@@ -116,6 +116,7 @@ footer {
 .btn:hover {
     background: #1d4ed8;
 }
+<<<<<<< HEAD
 
 .logout-btn {
     background: none;
@@ -132,3 +133,5 @@ footer {
 .logout-btn:hover {
     color: #93c5fd;
 }
+=======
+>>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
