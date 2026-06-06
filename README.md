@@ -216,3 +216,31 @@ http://127.0.0.1:8000/admin/
 - Role-based access control is implemented throughout the project.
 - Publishers can be created through the Django admin panel.
 - The project uses MariaDB/MySQL as the database backend.
+
+---
+
+# 🐳 Docker Setup
+
+This project includes a Dockerfile for containerised deployment.
+
+## Build Docker Image
+
+```bash
+docker build -t news-hub .
+Run Docker Container
+docker run -p 8000:8000 news-hub
+Access Application
+
+Open in browser:
+
+http://127.0.0.1:8000
+
+Requirements
+Docker Desktop must be installed and running
+Ensure port 8000 is free before running the container
+Notes
+
+If Docker is not installed, the project can still be run locally using the virtual environment setup above.
+
+
+---
