@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <h2>Create Article</h2>
 
 <form method="post">
@@ -12,6 +13,19 @@
 
     <label>Content</label><br>
     <textarea name="content" rows="6" required></textarea>
+    <br><br>
+
+    <label>Publisher</label><br>
+    <select name="publisher">
+        <option value="">Independent Article</option>
+
+        {% for publisher in publishers %}
+            <option value="{{ publisher.id }}">
+                {{ publisher.name }}
+            </option>
+        {% endfor %}
+    </select>
+
     <br><br>
 
     <button type="submit">Publish</button>

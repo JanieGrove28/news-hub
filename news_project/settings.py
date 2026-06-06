@@ -76,13 +76,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'news_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-<<<<<<< HEAD
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'news_db',
         'USER': 'root',
@@ -92,14 +90,6 @@ DATABASES = {
     }
 }
 
-=======
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
->>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 

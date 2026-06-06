@@ -6,23 +6,49 @@
 
 {% if articles %}
 
-{% for article in articles %}
-<div class="card">
-    <h3>{{ article.title }}</h3>
-    <p>{{ article.content|truncatewords:35 }}</p>
-    <small>
-        By {{ article.author }} |
-        {{ article.created_at|date:"d M Y" }}
-    </small>
-</div>
-{% endfor %}
+    {% for article in articles %}
+
+        <div class="card">
+
+            <h3>{{ article.title }}</h3>
+
+            <p>{{ article.content|truncatewords:35 }}</p>
+
+            <small>
+                By {{ article.author }}
+
+                {% if article.publisher %}
+                    | {{ article.publisher.name }}
+                {% endif %}
+
+                | {{ article.created_at|date:"d M Y" }}
+
+                {% if article.approved %}
+                    | Approved
+                {% else %}
+                    | Pending Approval
+                {% endif %}
+            </small>
+
+            {% if user.is_authenticated %}
+                {% if user.role == 'editor' and not article.approved %}
+                    <br><br>
+                    <a href="{% url 'approve_article' article.id %}">
+                        Approve Article
+                    </a>
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
 
 {% else %}
 
-<div class="empty">
-    <h3>No articles published yet.</h3>
-    <p>Check back soon.</p>
-</div>
+    <div class="empty">
+        <h3>No articles published yet.</h3>
+        <p>Check back soon.</p>
+    </div>
 
 {% endif %}
 

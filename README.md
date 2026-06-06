@@ -1,7 +1,6 @@
 # 📰 News Hub Django Project
 
 ## 📌 Overview
-<<<<<<< HEAD
 
 News Hub is a Django-based web application that allows users to register, create, approve, and manage news articles using role-based access control.
 
@@ -13,41 +12,41 @@ The project also includes a REST API built with Django REST Framework.
 
 ## User Roles
 
-* Reader
-* Journalist
-* Editor
+- Reader
+- Journalist
+- Editor
 
 ## Authentication
 
-* User Registration
-* Login / Logout
-* Role-based permissions
+- User Registration
+- Login / Logout
+- Role-based permissions
 
 ## Article System
 
-* Journalists can create articles
-* Editors can approve articles
-* Readers can view approved articles
+- Journalists can create articles
+- Editors can approve articles
+- Readers can view approved articles
 
 ## REST API
 
-* Retrieve approved articles
-* View subscribed articles
-* Create, update, and delete articles via API
+- Retrieve approved articles
+- View subscribed articles
+- Create, update, and delete articles via API
 
 ## Email Notifications
 
-* Console-based email notifications when articles are approved
+- Console-based email notifications when articles are approved
 
 ---
 
 # 🛠 Tech Stack
 
-* Python
-* Django
-* Django REST Framework
-* SQLite
-* HTML / CSS
+- Python
+- Django
+- Django REST Framework
+- MariaDB / MySQL
+- HTML / CSS
 
 ---
 
@@ -97,6 +96,39 @@ pip install -r requirements.txt
 
 ---
 
+# 🗄 Database Setup (MariaDB)
+
+This project uses MariaDB/MySQL instead of SQLite.
+
+## Create the database
+
+Open MariaDB/MySQL and run:
+
+```sql
+CREATE DATABASE news_db;
+```
+
+---
+
+## Database Configuration
+
+Update the `DATABASES` section in `settings.py` if needed:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'news_db',
+        'USER': 'root',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```
+
+---
+
 ## 6. Apply migrations
 
 ```bash
@@ -136,16 +168,16 @@ http://127.0.0.1:8000/
 
 ## Journalist
 
-* Can create articles
+- Can create articles
 
 ## Editor
 
-* Can approve articles
-* Can manage publishers
+- Can approve articles
+- Can manage publishers
 
 ## Reader
 
-* Can read approved articles
+- Can read approved articles
 
 ---
 
@@ -179,56 +211,8 @@ http://127.0.0.1:8000/admin/
 
 # ✅ Notes
 
-* Editors are responsible for approving articles before they become visible to readers.
-* Duplicate email registration is prevented.
-* Role-based access control is implemented throughout the project.
-* Publishers can be created through the Django admin panel.
-=======
-News Hub is a Django-based web application that allows users to register, create, approve, and manage news articles using role-based access control.
-
-It also includes a REST API built with Django REST Framework.
-
----
-
-## 🚀 Features
-
-- Custom User Model with roles:
-  - Reader
-  - Journalist
-  - Editor
-
-- Authentication system:
-  - Login / Logout
-  - Role-based permissions
-
-- Article system:
-  - Create articles (Journalist only)
-  - Approve articles (Editor only)
-  - View published articles
-
-- REST API:
-  - Get approved articles
-  - View subscribed articles
-  - Create/update/delete articles via API
-
-- Email simulation:
-  - Console-based email notifications when articles are approved
-
----
-
-## 🛠 Tech Stack
-
-- Python
-- Django
-- Django REST Framework
-- SQLite
-- HTML / CSS
-
----
-
-## ⚙️ Setup Instructions
-
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
->>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
+- Editors are responsible for approving articles before they become visible to readers.
+- Duplicate email registration is prevented.
+- Role-based access control is implemented throughout the project.
+- Publishers can be created through the Django admin panel.
+- The project uses MariaDB/MySQL as the database backend.

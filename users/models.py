@@ -3,12 +3,9 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-<<<<<<< HEAD
     """
-    Custom user model with roles and subscription preferences.
+    Custom user model with roles and subscriptions.
     """
-=======
->>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
 
     ROLE_CHOICES = (
         ('reader', 'Reader'),
@@ -22,13 +19,7 @@ class CustomUser(AbstractUser):
         default='reader'
     )
 
-<<<<<<< HEAD
-    subscribed_publishers = models.ManyToManyField(
-        'newsletters.Publisher',
-        blank=True,
-        related_name='subscribers'
-    )
-
+    # Readers subscribe to journalists
     subscribed_journalists = models.ManyToManyField(
         'self',
         symmetrical=False,
@@ -36,7 +27,3 @@ class CustomUser(AbstractUser):
         related_name='journalist_subscribers',
         limit_choices_to={'role': 'journalist'}
     )
-    
-=======
-    subscriptions = models.ManyToManyField("self", symmetrical=False, blank=True)
->>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6

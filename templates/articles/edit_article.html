@@ -1,0 +1,27 @@
+<h1>Edit Article</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="title" value="{{ article.title }}" required>
+    <br><br>
+
+    <textarea name="content" required>{{ article.content }}</textarea>
+    <br><br>
+
+    <select name="publisher">
+        <option value="">No Publisher</option>
+        {% for publisher in publishers %}
+            <option value="{{ publisher.id }}"
+                {% if article.publisher and article.publisher.id == publisher.id %}selected{% endif %}>
+                {{ publisher.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <button type="submit">Save</button>
+</form>
+
+<a href="{% url 'article_detail' article.id %}">Cancel</a>

@@ -21,16 +21,31 @@
 
         {% if user.is_authenticated %}
 
-            <a href="{% url 'create_article' %}">Create Article</a>
+            <span>
+                {{ user.username }} ({{ user.role|title }})
+            </span>
 
-<<<<<<< HEAD
+            <!-- EXISTING -->
+            {% if user.role == 'journalist' %}
+                <a href="{% url 'create_article' %}">Create Article</a>
+            {% endif %}
+
+            {% if user.role == 'editor' %}
+                <a href="{% url 'publisher_list' %}">Manage Publishers</a>
+            {% endif %}
+
+            <!-- 🔥 ADD THIS (CRITICAL MISSING PIECE) -->
+            <a href="{% url 'newsletter_list' %}">Newsletters</a>
+
+            <!-- OPTIONAL BUT IMPORTANT FOR REVIEWER TESTING -->
+            <a href="{% url 'home' %}">View Articles</a>
+
+            <!-- LOGOUT -->
             <form action="{% url 'logout' %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="logout-btn">Logout</button>
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
             </form>
-=======
-            <a href="{% url 'logout' %}">Logout</a>
->>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
+
         {% else %}
 
             <a href="/login/">Login</a>

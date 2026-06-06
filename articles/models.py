@@ -12,16 +12,19 @@ class Publisher(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
+
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
+
     publisher = models.ForeignKey(
         Publisher,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
+
     created_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
 

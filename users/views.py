@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import Group
 from .forms import CustomUserCreationForm
@@ -24,8 +23,5 @@ def register(request):
         form = CustomUserCreationForm()
 
     return render(request, 'users/register.html', {'form': form})
-=======
-from django.shortcuts import render
 
-# Create your views here.
->>>>>>> bf8953c5044d80824794e9511acb31e28f75b7b6
+from django.shortcuts import render

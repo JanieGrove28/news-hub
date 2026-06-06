@@ -1,0 +1,20 @@
+<h1>Newsletters</h1>
+
+<a href="{% url 'create_newsletter' %}">Create Newsletter</a>
+
+<hr>
+
+{% for newsletter in newsletters %}
+    <div>
+        <h3>{{ newsletter.title }}</h3>
+        <p>{{ newsletter.description }}</p>
+
+        <a href="{% url 'edit_newsletter' newsletter.id %}">Edit</a>
+        <a href="{% url 'delete_newsletter' newsletter.id %}">Delete</a>
+    </div>
+    <hr>
+{% empty %}
+    <p>No newsletters yet.</p>
+{% endfor %}
+
+<a href="{% url 'home' %}">Back to Home</a>
