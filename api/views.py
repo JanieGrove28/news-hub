@@ -1,3 +1,15 @@
+"""
+API Views for the News application.
+
+Provides RESTful endpoints for:
+- Articles (CRUD, approval, filtering)
+- Newsletters (CRUD)
+- Approved article notifications
+- Subscription-based article retrieval
+
+All endpoints use Django REST Framework.
+"""
+
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -17,6 +29,11 @@ from .serializers import ArticleSerializer, NewsletterSerializer
 # =========================
 @api_view(['GET'])
 def approved_articles(request):
+    """
+    Returns all articles that have been approved by an editor.
+
+    Public endpoint for retrieving published content.
+    """
     articles = Article.objects.filter(approved=True)
     return Response(ArticleSerializer(articles, many=True).data)
 
@@ -27,6 +44,13 @@ def approved_articles(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def subscribed_articles(request):
+    """
+    Returns articles based on the user's subscriptions.
+
+    Includes:
+    - Articles from subscribed journalists
+    - Articles from subscribed publishers
+    """
     user = request.user
 
     articles = (
@@ -42,16 +66,24 @@ def subscribed_articles(request):
 # =========================
 @api_view(['GET'])
 def article_detail(request, pk):
+    """
+    Retrieves a single article by its ID.
+    """
     article = get_object_or_404(Article, id=pk)
     return Response(ArticleSerializer(article).data)
 
 
 # =========================
-# CREATE ARTICLE
+# CREATE ARTICLE (API)
 # =========================
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_article_api(request):
+    """
+    Allows journalists to create new articles via API.
+
+    The logged-in user is set as the article author.
+    """
 
     if not request.user.groups.filter(name="Journalist").exists():
         return Response({"error": "Only journalists allowed"}, status=403)
@@ -66,11 +98,14 @@ def create_article_api(request):
 
 
 # =========================
-# UPDATE ARTICLE
+# UPDATE ARTICLE (API)
 # =========================
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_article(request, pk):
+    """
+    Allows journalists and editors to update an existing article.
+    """
 
     article = get_object_or_404(Article, id=pk)
 
@@ -87,11 +122,14 @@ def update_article(request, pk):
 
 
 # =========================
-# DELETE ARTICLE
+# DELETE ARTICLE (API)
 # =========================
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_article(request, pk):
+    """
+    Allows journalists and editors to delete an article via API.
+    """
 
     article = get_object_or_404(Article, id=pk)
 
@@ -103,11 +141,18 @@ def delete_article(request, pk):
 
 
 # =========================
-# APPROVAL (CRITICAL)
+# APPROVE ARTICLE
 # =========================
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def approve_article(request, pk):
+    """
+    Allows editors to approve an article.
+
+    Once approved:
+    - Email notification is sent
+    - External API endpoint is triggered
+    """
 
     if not request.user.groups.filter(name="Editor").exists():
         return Response({"error": "Only editors can approve"}, status=403)
@@ -140,22 +185,40 @@ def approve_article(request, pk):
 # =========================
 @api_view(['POST'])
 def approved_log(request):
+    """
+    Receives log data for approved articles.
+
+    Simulates external system integration.
+    """
     return Response({"message": "Received", "data": request.data})
 
 
 # =========================
-# NEWSLETTERS
+# NEWSLETTERS (API LIST)
 # =========================
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def newsletters(request):
+    """
+    Returns all newsletters in the system.
+
+    Accessible only to authenticated users.
+    """
     data = Newsletter.objects.all()
     return Response(NewsletterSerializer(data, many=True).data)
 
 
+# =========================
+# CREATE NEWSLETTER (API)
+# =========================
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_newsletter(request):
+    """
+    Allows journalists and editors to create newsletters via API.
+
+    The logged-in user is set as the author.
+    """
 
     if not request.user.groups.filter(name__in=["Journalist", "Editor"]).exists():
         return Response({"error": "Not allowed"}, status=403)
@@ -169,9 +232,15 @@ def create_newsletter(request):
     return Response(serializer.errors, status=400)
 
 
+# =========================
+# UPDATE NEWSLETTER
+# =========================
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_newsletter(request, pk):
+    """
+    Allows journalists and editors to update a newsletter.
+    """
 
     newsletter = get_object_or_404(Newsletter, id=pk)
 
@@ -187,9 +256,15 @@ def update_newsletter(request, pk):
     return Response(serializer.errors, status=400)
 
 
+# =========================
+# DELETE NEWSLETTER
+# =========================
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_newsletter(request, pk):
+    """
+    Allows journalists and editors to delete newsletters via API.
+    """
 
     newsletter = get_object_or_404(Newsletter, id=pk)
 
