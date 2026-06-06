@@ -1,3 +1,9 @@
+"""
+Views for the Articles app.
+
+Handles article creation, editing, deletion, approval, and publisher management.
+"""
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -9,6 +15,11 @@ from .models import Article, Publisher
 # HOME (FIXED VISIBILITY)
 # =========================
 def home(request):
+    """
+    Displays all approved articles on the homepage.
+
+    Only articles with approved=True are shown to users.
+    """
     articles = Article.objects.filter(approved=True)
 
     return render(
@@ -23,6 +34,12 @@ def home(request):
 # =========================
 @login_required
 def create_article(request):
+    """
+    Allows journalists to create a new article.
+
+    Journalists can optionally assign a publisher to the article.
+    Newly created articles are set to unapproved by default.
+    """
 
     if request.user.role != "journalist":
         return render(request, "articles/no_permission.html")
@@ -59,6 +76,11 @@ def create_article(request):
 # =========================
 @login_required
 def article_detail(request, pk):
+    """
+    Displays full details of a selected article.
+
+    Includes title, content, author, publisher, and approval status.
+    """
     article = get_object_or_404(Article, id=pk)
 
     return render(request, "articles/article_detail.html", {
@@ -71,6 +93,11 @@ def article_detail(request, pk):
 # =========================
 @login_required
 def edit_article(request, pk):
+    """
+    Allows the author or an editor to edit an existing article.
+
+    Updates title, content, and publisher information.
+    """
 
     article = get_object_or_404(Article, id=pk)
 
@@ -101,6 +128,11 @@ def edit_article(request, pk):
 # =========================
 @login_required
 def delete_article(request, pk):
+    """
+    Allows the author or an editor to delete an article.
+
+    Confirmation is required before permanent deletion.
+    """
 
     article = get_object_or_404(Article, id=pk)
 
@@ -121,6 +153,11 @@ def delete_article(request, pk):
 # =========================
 @login_required
 def approve_article(request, pk):
+    """
+    Allows editors to approve an article.
+
+    Approved articles become visible to all users on the homepage.
+    """
 
     if request.user.role != "editor":
         return render(request, "articles/no_permission.html")
@@ -138,6 +175,11 @@ def approve_article(request, pk):
 # =========================
 @login_required
 def publisher_list(request):
+    """
+    Allows editors to view and create publishers.
+
+    Publishers can be assigned to articles during creation or editing.
+    """
 
     if request.user.role != "editor":
         return render(request, "articles/no_permission.html")
@@ -163,5 +205,8 @@ def publisher_list(request):
 # LOGOUT
 # =========================
 def logout_view(request):
+    """
+    Logs the user out of the system and redirects to homepage.
+    """
     logout(request)
     return redirect('home')
