@@ -10,23 +10,26 @@ project = 'News Hub'
 copyright = '2026, Janie'
 author = 'Janie'
 
+# -- Add project to path -----------------------------------------------------
+
+sys.path.insert(0, os.path.abspath('../..'))  # important fix
+
+# Django setup
+os.environ['DJANGO_SETTINGS_MODULE'] = 'news_project.settings'
+django.setup()
+
 # -- General configuration ---------------------------------------------------
 
-extensions = []
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
 
-# -- Options for HTML output -------------------------------------------------
+# -- HTML output -------------------------------------------------------------
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
-
-# -- Django setup (IMPORTANT FOR CAPSTONE) ----------------------------------
-
-sys.path.insert(0, os.path.abspath('..'))
-
-# IMPORTANT: replace with your actual Django project name
-os.environ['DJANGO_SETTINGS_MODULE'] = 'news_project.settings'
-
-django.setup()
