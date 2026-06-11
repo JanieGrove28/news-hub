@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <h1>Newsletters</h1>
 
 <a href="{% url 'create_newsletter' %}">Create Newsletter</a>
@@ -18,3 +22,5 @@
 {% endfor %}
 
 <a href="{% url 'home' %}">Back to Home</a>
+
+{% endblock %}

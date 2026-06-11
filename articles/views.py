@@ -16,18 +16,34 @@ from .models import Article, Publisher
 # =========================
 def home(request):
     """
-    Displays all approved articles on the homepage.
+    Displays articles based on the user's role.
 
-    Only articles with approved=True are shown to users.
+    Readers see approved articles only.
+    Journalists see approved articles and their own unapproved articles.
+    Editors can see all articles.
     """
-    articles = Article.objects.filter(approved=True)
+
+    if request.user.is_authenticated:
+
+        if request.user.role == "editor":
+            articles = Article.objects.all()
+
+        elif request.user.role == "journalist":
+            articles = Article.objects.filter(approved=True) | Article.objects.filter(
+                author=request.user
+            )
+
+        else:
+            articles = Article.objects.filter(approved=True)
+
+    else:
+        articles = Article.objects.filter(approved=True)
 
     return render(
         request,
-        'articles/home.html',
-        {'articles': articles}
+        "articles/home.html",
+        {"articles": articles}
     )
-
 
 # =========================
 # CREATE ARTICLE

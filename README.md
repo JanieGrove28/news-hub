@@ -12,41 +12,42 @@ The project also includes a REST API built with Django REST Framework.
 
 ## User Roles
 
-- Reader
-- Journalist
-- Editor
+* Reader
+* Journalist
+* Editor
 
 ## Authentication
 
-- User Registration
-- Login / Logout
-- Role-based permissions
+* User Registration
+* Login / Logout
+* Role-based permissions
 
 ## Article System
 
-- Journalists can create articles
-- Editors can approve articles
-- Readers can view approved articles
+* Journalists can create articles
+* Journalists can edit and delete their own articles before approval
+* Editors can approve articles
+* Readers can view approved articles
 
 ## REST API
 
-- Retrieve approved articles
-- View subscribed articles
-- Create, update, and delete articles via API
+* Retrieve approved articles
+* View subscribed articles
+* Create, update, and delete articles via API
 
 ## Email Notifications
 
-- Console-based email notifications when articles are approved
+* Console-based email notifications when articles are approved
 
 ---
 
 # 🛠 Tech Stack
 
-- Python
-- Django
-- Django REST Framework
-- MariaDB / MySQL
-- HTML / CSS
+* Python
+* Django
+* Django REST Framework
+* MariaDB / MySQL
+* HTML / CSS
 
 ---
 
@@ -55,7 +56,7 @@ The project also includes a REST API built with Django REST Framework.
 ## 1. Clone the repository
 
 ```bash
-git clone <your-github-repository-link>
+git clone https://github.com/JanieGrove28/news-hub.git
 ```
 
 ---
@@ -63,7 +64,7 @@ git clone <your-github-repository-link>
 ## 2. Enter the project folder
 
 ```bash
-cd news_capstone
+cd news-hub
 ```
 
 ---
@@ -168,16 +169,17 @@ http://127.0.0.1:8000/
 
 ## Journalist
 
-- Can create articles
+* Can create articles
+* Can edit and delete their own articles
 
 ## Editor
 
-- Can approve articles
-- Can manage publishers
+* Can approve articles
+* Can manage publishers
 
 ## Reader
 
-- Can read approved articles
+* Can read approved articles
 
 ---
 
@@ -211,11 +213,11 @@ http://127.0.0.1:8000/admin/
 
 # ✅ Notes
 
-- Editors are responsible for approving articles before they become visible to readers.
-- Duplicate email registration is prevented.
-- Role-based access control is implemented throughout the project.
-- Publishers can be created through the Django admin panel.
-- The project uses MariaDB/MySQL as the database backend.
+* Editors are responsible for approving articles before they become visible to readers.
+* Duplicate email registration is prevented.
+* Role-based access control is implemented throughout the project.
+* Publishers can be created through the Django admin panel.
+* The project uses MariaDB/MySQL as the database backend.
 
 ---
 
@@ -227,20 +229,27 @@ This project includes a Dockerfile for containerised deployment.
 
 ```bash
 docker build -t news-hub .
-Run Docker Container
+```
+
+## Run Docker Container
+
+```bash
 docker run -p 8000:8000 news-hub
-Access Application
+```
 
-Open in browser:
+## Access Application
 
+Open in your browser:
+
+```text
 http://127.0.0.1:8000
+```
 
-Requirements
-Docker Desktop must be installed and running
-Ensure port 8000 is free before running the container
-Notes
+## Requirements
+
+* Docker Desktop must be installed and running.
+* Ensure port 8000 is free before running the container.
+
+## Notes
 
 If Docker is not installed, the project can still be run locally using the virtual environment setup above.
-
-
----
