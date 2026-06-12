@@ -16,11 +16,7 @@ from .models import Article, Publisher
 # =========================
 def home(request):
     """
-    Displays articles based on the user's role.
-
-    Readers see approved articles only.
-    Journalists see approved articles and their own unapproved articles.
-    Editors can see all articles.
+    Displays articles based on role.
     """
 
     if request.user.is_authenticated:
@@ -29,9 +25,10 @@ def home(request):
             articles = Article.objects.all()
 
         elif request.user.role == "journalist":
-            articles = Article.objects.filter(approved=True) | Article.objects.filter(
-                author=request.user
-            )
+            articles = (
+                Article.objects.filter(approved=True)
+                | Article.objects.filter(author=request.user)
+            ).distinct()
 
         else:
             articles = Article.objects.filter(approved=True)
@@ -39,11 +36,7 @@ def home(request):
     else:
         articles = Article.objects.filter(approved=True)
 
-    return render(
-        request,
-        "articles/home.html",
-        {"articles": articles}
-    )
+    return render(request, "articles/home.html", {"articles": articles})
 
 # =========================
 # CREATE ARTICLE
