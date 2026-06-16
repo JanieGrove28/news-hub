@@ -12,7 +12,7 @@ author = 'Janie'
 
 # -- Add project to path -----------------------------------------------------
 
-sys.path.insert(0, os.path.abspath('../..'))  # important fix
+sys.path.insert(0, os.path.abspath('../../..'))
 
 # Django setup
 os.environ['DJANGO_SETTINGS_MODULE'] = 'news_project.settings'
